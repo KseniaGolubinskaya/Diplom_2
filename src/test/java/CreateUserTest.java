@@ -15,7 +15,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class CreateUserTest {
     private UserRestClient userRestClient;
-    private String email;
 
     @Before
     public void setUp() {
@@ -33,7 +32,7 @@ public class CreateUserTest {
     }
 
     @Test
-    @DisplayName("Проверка создания уникального пользователя.")
+    @DisplayName("Проверка создания уникального пользователя и его успешной авторизации")
     public void createUniqueUserSuccessTest() {
         // Arrange
         CreateUserRequest randomCreateUserRequest = createRandomUniqueUserRequest();
@@ -48,7 +47,7 @@ public class CreateUserTest {
 
         // login user
         LoginUserRequest loginUserRequest = LoginUserRequestGenerator.from(randomCreateUserRequest);
-        String token = userRestClient.loginUser(loginUserRequest);
+        String token = userRestClient.getUserToken(loginUserRequest);
         Assert.assertNotNull(token);
     }
 
@@ -61,7 +60,7 @@ public class CreateUserTest {
         ValidatableResponse createUserResponse = userRestClient.createUser(randomCreateUserRequest);
 
         LoginUserRequest loginUserRequest = LoginUserRequestGenerator.from(randomCreateUserRequest);
-        userRestClient.loginUser(loginUserRequest);
+        userRestClient.getUserToken(loginUserRequest);
 
         ValidatableResponse createSameUserResponse = userRestClient.createUser(randomCreateUserRequest);
 

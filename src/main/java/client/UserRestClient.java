@@ -32,10 +32,10 @@ public class UserRestClient extends RestClient {
         }
 
         /**
-         * login user
+         * get user token
          */
-        @Step("Логин пользователя")
-        public String loginUser(LoginUserRequest loginUserRequest) {
+        @Step("Получение токена пользователя")
+        public String getUserToken(LoginUserRequest loginUserRequest) {
                 token = given()
                     .spec(getDefaultRequestSpec())
                     .body(loginUserRequest)
@@ -43,6 +43,18 @@ public class UserRestClient extends RestClient {
                     //.then()
                     .body().as(LoginUserResponse.class).getAccessToken();
                 return token;
+        }
+
+        /**
+         * login user
+         */
+        @Step("Логин пользователя")
+        public ValidatableResponse loginUser(LoginUserRequest loginUserRequest) {
+                return given()
+                        .spec(getDefaultRequestSpec())
+                        .body(loginUserRequest)
+                        .post(USER_LOGIN)
+                        .then();
         }
 
         /**

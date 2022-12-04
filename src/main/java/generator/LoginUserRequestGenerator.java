@@ -12,17 +12,17 @@ public class LoginUserRequestGenerator {
         return loginUserRequest;
     }
 
-    public static LoginUserRequest byInvalidEmail(String password) {
+    public static LoginUserRequest byRandomEmail(String password) {
         LoginUserRequest loginUserRequest = new LoginUserRequest();
-        loginUserRequest.setEmail("ariika-87@mail.ru");
+        loginUserRequest.setEmail(RandomStringUtils.randomAlphabetic(10)+'@'+RandomStringUtils.randomAlphabetic(5)+'.'+RandomStringUtils.randomAlphabetic(3));
         loginUserRequest.setPassword(password);
         return loginUserRequest;
     }
 
-    public static LoginUserRequest byInvalidPassword(String email) {
+    public static LoginUserRequest byRandomPassword(String email) {
         LoginUserRequest loginUserRequest = new LoginUserRequest();
         loginUserRequest.setEmail(email);
-        loginUserRequest.setPassword("458977210");
+        loginUserRequest.setPassword(RandomStringUtils.randomAlphanumeric(10));
         return loginUserRequest;
     }
 }
