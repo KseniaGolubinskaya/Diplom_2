@@ -7,8 +7,6 @@ import dto.LoginUserResponse;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
-import java.net.URI;
-
 import static io.restassured.RestAssured.given;
 
 public class UserRestClient extends RestClient {
@@ -49,7 +47,6 @@ public class UserRestClient extends RestClient {
                     .spec(getDefaultRequestSpec())
                     .body(loginUserRequest)
                     .post(USER_LOGIN)
-                    //.then()
                     .body().as(LoginUserResponse.class).getAccessToken();
                 return token;
         }

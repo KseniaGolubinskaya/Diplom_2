@@ -3,17 +3,17 @@ package dto;
 import java.util.List;
 
 public class CreateOrderRequest {
-    List<String> Ingredients;
+    private List<String> ingredients;
 
     public CreateOrderRequest(List<String> ingredients) {
-        Ingredients = ingredients;
+        this.ingredients = ingredients;
     }
 
     public List<String> getIngredients() {
-        return Ingredients;
+        return ingredients;
     }
 
     public void setIngredients(List<String> ingredients) {
-        Ingredients = ingredients;
+        this.ingredients = ingredients;
     }
 }
