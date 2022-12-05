@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class LoginUserTest {
     private UserRestClient userRestClient;

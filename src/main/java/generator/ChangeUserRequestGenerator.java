@@ -13,11 +13,11 @@ public class ChangeUserRequestGenerator {
         return changeUserRequest;
     }
 
-    public static ChangeUserRequest changeEmailFieldRandomUserRequest() {
+    public static ChangeUserRequest from(CreateUserRequest createUserRequest) {
         ChangeUserRequest changeUserRequest = new ChangeUserRequest();
-        changeUserRequest.setEmail(RandomStringUtils.randomAlphabetic(20));
-        changeUserRequest.setPassword("458977215");
-        changeUserRequest.setName("Ksenia");
+        changeUserRequest.setEmail(createUserRequest.getEmail());
+        changeUserRequest.setPassword(createUserRequest.getPassword());
+        changeUserRequest.setName(createUserRequest.getName());
         return changeUserRequest;
     }
 

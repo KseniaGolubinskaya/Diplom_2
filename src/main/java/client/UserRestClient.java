@@ -1,10 +1,13 @@
 package client;
 
+import dto.ChangeUserRequest;
 import dto.CreateUserRequest;
 import dto.LoginUserRequest;
 import dto.LoginUserResponse;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
+
+import java.net.URI;
 
 import static io.restassured.RestAssured.given;
 
@@ -13,6 +16,12 @@ public class UserRestClient extends RestClient {
         private static final String USER_LOGIN = "api/auth/login";
         private static final String USER_CHANGE = "api/auth/user";
         private static final String USER_DELETE = "api/auth/user";
+        private static final String USER_GET = "api/auth/user";
+
+        public void setToken(String token) {
+                this.token = token;
+        }
+
         private String token;
 
         public String getToken() {
@@ -61,10 +70,12 @@ public class UserRestClient extends RestClient {
          * change user
          */
         @Step("Изменение данных пользователя")
-        public ValidatableResponse changeUser() {
+        public ValidatableResponse changeUser(ChangeUserRequest changeUserRequest) {
             return given()
+                    .header("Authorization", token)
                     .spec(getDefaultRequestSpec())
-                    .delete(USER_CHANGE)
+                    .body(changeUserRequest)
+                    .patch(USER_CHANGE)
                     .then();
         }
 
@@ -77,6 +88,18 @@ public class UserRestClient extends RestClient {
                         .header("Authorization", token)
                         .spec(getDefaultRequestSpec())
                         .delete(USER_DELETE)
+                        .then();
+        }
+
+        /**
+         * get user data
+         */
+        @Step("Получение данных пользователя")
+        public ValidatableResponse getUser() {
+                return given()
+                        .header("Authorization", token)
+                        .spec(getDefaultRequestSpec())
+                        .get(USER_GET)
                         .then();
         }
 }
