@@ -41,6 +41,7 @@ public class OrderRestClient extends RestClient {
     public ValidatableResponse getOrderList() {
         return given()
                 .spec(getDefaultRequestSpec())
+                .header("Authorization", token)
                 .get(GET_LIST_ORDER)
                 .then();
     }
