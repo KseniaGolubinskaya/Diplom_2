@@ -11,6 +11,16 @@ public class OrderRestClient extends RestClient {
     private static final String GET_LIST_ORDER = "api/orders";
     private static final String DELETE_ORDER = "api/orders";
 
+    private String token;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
     /**
      * create order
      */
@@ -18,6 +28,7 @@ public class OrderRestClient extends RestClient {
     public ValidatableResponse createOrder(CreateOrderRequest createOrderRequest) {
         return given()
                 .spec(getDefaultRequestSpec())
+                .header("Authorization", token)
                 .body(createOrderRequest)
                 .post(ORDER_CREATE)
                 .then();

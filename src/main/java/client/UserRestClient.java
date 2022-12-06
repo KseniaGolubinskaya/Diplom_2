@@ -16,11 +16,11 @@ public class UserRestClient extends RestClient {
         private static final String USER_DELETE = "api/auth/user";
         private static final String USER_GET = "api/auth/user";
 
+        private String token;
+
         public void setToken(String token) {
                 this.token = token;
         }
-
-        private String token;
 
         public String getToken() {
                 return token;
