@@ -9,16 +9,11 @@ import static io.restassured.RestAssured.given;
 public class OrderRestClient extends RestClient {
     private static final String ORDER_CREATE = "api/orders";
     private static final String GET_LIST_ORDER = "api/orders";
-    private static final String DELETE_ORDER = "api/orders";
 
     private String token;
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getToken() {
-        return token;
     }
 
     /**
@@ -45,15 +40,4 @@ public class OrderRestClient extends RestClient {
                 .get(GET_LIST_ORDER)
                 .then();
     }
-
-//    /**
-//     * get order list
-//     */
-//    @Step("Удаление заказа")
-//    public ValidatableResponse cancelOrder(Integer number) {
-//        return given()
-//                .spec(getDefaultRequestSpec())
-//                .get(DELETE_ORDER)
-//                .then();
-//    }
 }

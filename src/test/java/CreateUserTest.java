@@ -23,12 +23,12 @@ public class CreateUserTest {
 
     @After
     public void tearDown() {
-        if(userRestClient.getToken() == null) {
+        if (userRestClient.getToken() == null) {
             return;
         }
-           userRestClient.deleteUser()
-                    .assertThat()
-                    .body("success", equalTo(true));
+        userRestClient.deleteUser()
+                .assertThat()
+                .body("success", equalTo(true));
     }
 
     @Test
@@ -78,24 +78,24 @@ public class CreateUserTest {
                 .body("message", equalTo("User already exists"));
     }
 
-        @Test
-        @DisplayName("Проверка создания пользователя без поля email")
-        public void createUserWithoutFieldEmailFailedTest () {
-            // Arrange
-            CreateUserRequest randomCreateUserRequest = createUserWithoutEmailRequest();
-            // Act
-            ValidatableResponse createUserResponse = userRestClient.createUser(randomCreateUserRequest);
-            // Assert
-            createUserResponse
-                    .assertThat()
-                    .statusCode(SC_FORBIDDEN)
-                    .and()
-                    .body("message", equalTo("Email, password and name are required fields"));
-        }
+    @Test
+    @DisplayName("Проверка создания пользователя без поля email")
+    public void createUserWithoutFieldEmailFailedTest() {
+        // Arrange
+        CreateUserRequest randomCreateUserRequest = createUserWithoutEmailRequest();
+        // Act
+        ValidatableResponse createUserResponse = userRestClient.createUser(randomCreateUserRequest);
+        // Assert
+        createUserResponse
+                .assertThat()
+                .statusCode(SC_FORBIDDEN)
+                .and()
+                .body("message", equalTo("Email, password and name are required fields"));
+    }
 
     @Test
     @DisplayName("Проверка создания пользователя без поля password")
-    public void createUserWithoutFieldPasswordFailedTest () {
+    public void createUserWithoutFieldPasswordFailedTest() {
         // Arrange
         CreateUserRequest randomCreateUserRequest = createUserWithoutPasswordRequest();
         // Act
@@ -110,7 +110,7 @@ public class CreateUserTest {
 
     @Test
     @DisplayName("Проверка создания пользователя без поля name")
-    public void createUserWithoutFieldNameFailedTest () {
+    public void createUserWithoutFieldNameFailedTest() {
         // Arrange
         CreateUserRequest randomCreateUserRequest = createUserWithoutNameRequest();
         // Act

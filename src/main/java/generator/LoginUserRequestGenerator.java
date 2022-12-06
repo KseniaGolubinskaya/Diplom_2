@@ -14,7 +14,7 @@ public class LoginUserRequestGenerator {
 
     public static LoginUserRequest byRandomEmail(String password) {
         LoginUserRequest loginUserRequest = new LoginUserRequest();
-        loginUserRequest.setEmail(RandomStringUtils.randomAlphabetic(10)+'@'+RandomStringUtils.randomAlphabetic(5)+'.'+RandomStringUtils.randomAlphabetic(3));
+        loginUserRequest.setEmail(RandomStringUtils.randomAlphabetic(10) + '@' + RandomStringUtils.randomAlphabetic(5) + '.' + RandomStringUtils.randomAlphabetic(3));
         loginUserRequest.setPassword(password);
         return loginUserRequest;
     }

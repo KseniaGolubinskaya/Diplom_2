@@ -68,7 +68,7 @@ public class GetOrdersTest {
 
     @After
     public void tearDown() {
-        if(userRestClient.getToken() == null) {
+        if (userRestClient.getToken() == null) {
             return;
         }
         userRestClient.deleteUser()

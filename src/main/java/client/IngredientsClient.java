@@ -1,8 +1,6 @@
 package client;
 
 import dto.GetIngredientsResponse;
-import dto.LoginUserRequest;
-import dto.LoginUserResponse;
 import io.qameta.allure.Step;
 
 import static io.restassured.RestAssured.given;

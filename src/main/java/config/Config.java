@@ -5,5 +5,5 @@ public class Config {
 
     public static String getBaseUri() {
         return BASE_URI;
-    };
+    }
 }
