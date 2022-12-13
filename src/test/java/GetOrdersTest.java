@@ -4,8 +4,6 @@ import client.UserRestClient;
 import dto.CreateOrderRequest;
 import dto.CreateUserRequest;
 import dto.GetIngredientsResponse;
-import dto.LoginUserRequest;
-import generator.LoginUserRequestGenerator;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -16,7 +14,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static generator.CreateUserRequestGenerator.createRandomUniqueUserRequest;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hamcrest.CoreMatchers.*;
@@ -32,19 +29,8 @@ public class GetOrdersTest {
 
     @Before
     public void setUp() {
-        // create user
-        CreateUserRequest randomCreateUserRequest = createRandomUniqueUserRequest();
-        ValidatableResponse createUniqueUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        createUniqueUserResponse
-                .assertThat()
-                .statusCode(SC_OK)
-                .and()
-                .body("success", equalTo(true));
-
-        // login user
-        LoginUserRequest loginUserRequest = LoginUserRequestGenerator.from(randomCreateUserRequest);
-        String token = userRestClient.getUserToken(loginUserRequest);
-        Assert.assertNotNull(token);
+        CreateUserRequest randomCreateUserRequest = TestsHelper.createUser(userRestClient);
+        TestsHelper.loginUser(userRestClient, randomCreateUserRequest);
 
         // get ingredients list
         ingredients = ingredientsClient.getIngredients();
@@ -55,9 +41,9 @@ public class GetOrdersTest {
         List<String> ingredientsForOrder = new ArrayList<String>();
         ingredientsForOrder.add(ingredients.getData()[0].get_id());
         CreateOrderRequest createOrderRequest = new CreateOrderRequest(ingredientsForOrder);
-        // Act
+
         ValidatableResponse createOrderResponse = orderRestClient.createOrder(createOrderRequest);
-        // Assert
+
         orderNumber = createOrderResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -79,9 +65,8 @@ public class GetOrdersTest {
     @Test
     @DisplayName("Проверка получения заказов авторизованного пользователя")
     public void getOrderListAuthUserSuccessTest() {
-        // Act
         ValidatableResponse getOrdersListResponse = orderRestClient.getOrderList();
-        // Assert
+
         getOrdersListResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -93,11 +78,10 @@ public class GetOrdersTest {
     @Test
     @DisplayName("Проверка получения заказов неавторизованного пользователя")
     public void getOrderListNotAuthUserFaledTest() {
-        // Arrange
         orderRestClient.setToken("");
-        // Act
+
         ValidatableResponse getOrdersListResponse = orderRestClient.getOrderList();
-        // Assert
+
         getOrdersListResponse
                 .assertThat()
                 .statusCode(SC_UNAUTHORIZED)

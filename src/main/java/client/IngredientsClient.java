@@ -8,9 +8,6 @@ import static io.restassured.RestAssured.given;
 public class IngredientsClient extends RestClient {
     private static final String INGREDIENTS_GET = "api/ingredients";
 
-    /**
-     * get ingredients
-     */
     @Step("Получение списка ингредиентов")
     public GetIngredientsResponse getIngredients() {
         return given()

@@ -26,9 +26,6 @@ public class UserRestClient extends RestClient {
         return token;
     }
 
-    /**
-     * create user
-     */
     @Step("Создание пользователя")
     public ValidatableResponse createUser(CreateUserRequest createUserRequest) {
         return given()
@@ -38,9 +35,6 @@ public class UserRestClient extends RestClient {
                 .then();
     }
 
-    /**
-     * get user token
-     */
     @Step("Получение токена пользователя")
     public String getUserToken(LoginUserRequest loginUserRequest) {
         token = given()
@@ -51,9 +45,6 @@ public class UserRestClient extends RestClient {
         return token;
     }
 
-    /**
-     * login user
-     */
     @Step("Логин пользователя")
     public ValidatableResponse loginUser(LoginUserRequest loginUserRequest) {
         return given()
@@ -63,9 +54,6 @@ public class UserRestClient extends RestClient {
                 .then();
     }
 
-    /**
-     * change user
-     */
     @Step("Изменение данных пользователя")
     public ValidatableResponse changeUser(ChangeUserRequest changeUserRequest) {
         return given()
@@ -76,9 +64,6 @@ public class UserRestClient extends RestClient {
                 .then();
     }
 
-    /**
-     * delete user
-     */
     @Step("Удаление пользователя")
     public ValidatableResponse deleteUser() {
         return given()
@@ -88,9 +73,6 @@ public class UserRestClient extends RestClient {
                 .then();
     }
 
-    /**
-     * get user data
-     */
     @Step("Получение данных пользователя")
     public ValidatableResponse getUser() {
         return given()

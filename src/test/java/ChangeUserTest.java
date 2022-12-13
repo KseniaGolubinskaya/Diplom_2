@@ -3,8 +3,6 @@ import dto.ChangeUserRequest;
 import dto.CreateUserRequest;
 import dto.LoginUserRequest;
 import generator.ChangeUserRequestGenerator;
-import generator.CreateUserRequestGenerator;
-import generator.LoginUserRequestGenerator;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -23,19 +21,8 @@ public class ChangeUserTest {
     @Before
     public void setUp() {
         userRestClient = new UserRestClient();
-        // Create user
-        randomCreateUserRequest = CreateUserRequestGenerator.createRandomUniqueUserRequest();
-        ValidatableResponse createUniqueUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        createUniqueUserResponse
-                .assertThat()
-                .statusCode(SC_OK)
-                .and()
-                .body("success", equalTo(true));
-
-        // login user
-        loginUserRequest = LoginUserRequestGenerator.from(randomCreateUserRequest);
-        String token = userRestClient.getUserToken(loginUserRequest);
-        Assert.assertNotNull(token);
+        randomCreateUserRequest = TestsHelper.createUser(userRestClient);
+        loginUserRequest = TestsHelper.loginUser(userRestClient, randomCreateUserRequest);
     }
 
     @After
@@ -54,9 +41,9 @@ public class ChangeUserTest {
         // change user email
         ChangeUserRequest changeEmailUserRequest = ChangeUserRequestGenerator.from(randomCreateUserRequest);
         changeEmailUserRequest.setEmail("new_email12@yandex.ru");
-        // Act
+
         ValidatableResponse changeUserEmailResponse = userRestClient.changeUser(changeEmailUserRequest);
-        // Assert
+
         changeUserEmailResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -78,9 +65,9 @@ public class ChangeUserTest {
         // change user email
         ChangeUserRequest changePasswordRequest = ChangeUserRequestGenerator.from(randomCreateUserRequest);
         changePasswordRequest.setPassword("7tr65trfyguihjkol");
-        // Act
+
         ValidatableResponse changePasswordResponse = userRestClient.changeUser(changePasswordRequest);
-        // Assert
+
         changePasswordResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -99,9 +86,9 @@ public class ChangeUserTest {
         // change user email
         ChangeUserRequest changeNameRequest = ChangeUserRequestGenerator.from(randomCreateUserRequest);
         changeNameRequest.setName("John");
-        // Act
+
         ValidatableResponse changeNameResponse = userRestClient.changeUser(changeNameRequest);
-        // Assert
+
         changeNameResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -124,9 +111,9 @@ public class ChangeUserTest {
         userRestClient.setToken("");
         // change user
         ChangeUserRequest changeUserRequest = ChangeUserRequestGenerator.from(randomCreateUserRequest);
-        // Act
+
         ValidatableResponse changeUserResponse = userRestClient.changeUser(changeUserRequest);
-        // Assert
+
         changeUserResponse
                 .assertThat()
                 .statusCode(SC_UNAUTHORIZED)

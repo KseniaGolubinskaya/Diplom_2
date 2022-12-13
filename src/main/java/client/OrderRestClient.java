@@ -16,9 +16,6 @@ public class OrderRestClient extends RestClient {
         this.token = token;
     }
 
-    /**
-     * create order
-     */
     @Step("Создание заказа")
     public ValidatableResponse createOrder(CreateOrderRequest createOrderRequest) {
         return given()
@@ -29,9 +26,6 @@ public class OrderRestClient extends RestClient {
                 .then();
     }
 
-    /**
-     * get order list
-     */
     @Step("Получение списка заказов")
     public ValidatableResponse getOrderList() {
         return given()

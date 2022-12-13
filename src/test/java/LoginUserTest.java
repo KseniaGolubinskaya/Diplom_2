@@ -35,11 +35,10 @@ public class LoginUserTest {
     @DisplayName("Проверка, что система вернёт ошибку, если неправильно указать email при авторизации")
     public void loginCourierWithInvalidEmailFailedTest() {
         // Создание пользователя
-        // Arrange
         CreateUserRequest randomCreateUserRequest = CreateUserRequestGenerator.createRandomUniqueUserRequest();
-        // Act
+
         ValidatableResponse createUniqueUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        // Assert
+
         createUniqueUserResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -65,11 +64,10 @@ public class LoginUserTest {
     @DisplayName("Проверка, что система вернёт ошибку, если неправильно указать пароль при авторизации")
     public void loginCourierWithInvalidPasswordFailedTest() {
         // Создание пользователя
-        // Arrange
         CreateUserRequest randomCreateUserRequest = CreateUserRequestGenerator.createRandomUniqueUserRequest();
-        // Act
+
         ValidatableResponse createUniqueUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        // Assert
+
         createUniqueUserResponse
                 .assertThat()
                 .statusCode(SC_OK)

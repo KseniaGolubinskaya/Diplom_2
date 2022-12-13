@@ -34,11 +34,10 @@ public class CreateUserTest {
     @Test
     @DisplayName("Проверка создания уникального пользователя и его успешной авторизации")
     public void createUniqueUserSuccessTest() {
-        // Arrange
         CreateUserRequest randomCreateUserRequest = createRandomUniqueUserRequest();
-        // Act
+
         ValidatableResponse createUniqueUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        // Assert
+
         createUniqueUserResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -54,9 +53,8 @@ public class CreateUserTest {
     @Test
     @DisplayName("Проверка создания пользователя, который уже зарегистрирован")
     public void createUserThatAlreadyExistFailedTest() {
-        // Arrange
         CreateUserRequest randomCreateUserRequest = createRandomUniqueUserRequest();
-        // Act
+
         ValidatableResponse createUserResponse = userRestClient.createUser(randomCreateUserRequest);
 
         LoginUserRequest loginUserRequest = LoginUserRequestGenerator.from(randomCreateUserRequest);
@@ -64,7 +62,6 @@ public class CreateUserTest {
 
         ValidatableResponse createSameUserResponse = userRestClient.createUser(randomCreateUserRequest);
 
-        // Assert
         createUserResponse
                 .assertThat()
                 .statusCode(SC_OK)
@@ -81,11 +78,10 @@ public class CreateUserTest {
     @Test
     @DisplayName("Проверка создания пользователя без поля email")
     public void createUserWithoutFieldEmailFailedTest() {
-        // Arrange
         CreateUserRequest randomCreateUserRequest = createUserWithoutEmailRequest();
-        // Act
+
         ValidatableResponse createUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        // Assert
+
         createUserResponse
                 .assertThat()
                 .statusCode(SC_FORBIDDEN)
@@ -96,11 +92,10 @@ public class CreateUserTest {
     @Test
     @DisplayName("Проверка создания пользователя без поля password")
     public void createUserWithoutFieldPasswordFailedTest() {
-        // Arrange
         CreateUserRequest randomCreateUserRequest = createUserWithoutPasswordRequest();
-        // Act
+
         ValidatableResponse createUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        // Assert
+
         createUserResponse
                 .assertThat()
                 .statusCode(SC_FORBIDDEN)
@@ -111,11 +106,10 @@ public class CreateUserTest {
     @Test
     @DisplayName("Проверка создания пользователя без поля name")
     public void createUserWithoutFieldNameFailedTest() {
-        // Arrange
         CreateUserRequest randomCreateUserRequest = createUserWithoutNameRequest();
-        // Act
+
         ValidatableResponse createUserResponse = userRestClient.createUser(randomCreateUserRequest);
-        // Assert
+
         createUserResponse
                 .assertThat()
                 .statusCode(SC_FORBIDDEN)
